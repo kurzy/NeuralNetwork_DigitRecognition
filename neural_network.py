@@ -23,7 +23,7 @@ class Neural_Net(object):
                 self.Train_Set = "csv-files/TrainDigitX.csv.gz"
                 self.Train_Set_Label = "csv-files/TrainDigitY.csv.gz"
                 self.Test_Set = "csv-files/TestDigitX.csv.gz"
-                self.Test_Set_Prediction = "csv-files/PredictDigitY.csv.gz"
+                self.Test_Set_Prediction = "csv-output/PredictDigitY.csv.gz"
                 print("Executing with demo arguments") 
             else:
                 # Gets the command-line arguments, CSV files are stored in the 'csv-input' directory.

@@ -2,7 +2,6 @@
 
 import numpy as np
 import sys
-from neural_network import Neural_Net
 
 # Compares the values of Y with Y_hat, and returns the accuracy as the percentage of correct classifications.
 # Is used for debugging and gathering accuracy data.
@@ -24,7 +23,7 @@ def print_accuracy(Output, Test_Y):
 
 # Default files for demo
 test_labels_file = 'csv-files/TestDigitY.csv.gz'
-neural_network_labels_file = 'csv-files/PredictDigitY.csv.gz'
+neural_network_labels_file = 'csv-output/PredictDigitY.csv.gz'
 
 # Check for command line arguments
 if "-demo" not in sys.argv:
