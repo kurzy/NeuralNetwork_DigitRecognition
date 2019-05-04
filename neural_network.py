@@ -14,20 +14,28 @@ np.seterr(over='ignore')
 class Neural_Net(object):
 
     def __init__(self):
-        # Gets the command-line arguments, CSV files are stored in the 'csv-input' directory.
-        if len(sys.argv) == 8:
-            self.N_Input = int(sys.argv[1])
-            self.N_Hidden = int(sys.argv[2])
-            self.N_Output = int(sys.argv[3])
-            self.Train_Set = "csv-input/" + sys.argv[4]
-            self.Train_Set_Label = "csv-input/" + sys.argv[5]
-            self.Test_Set = "csv-input/" + sys.argv[6]
-            self.Test_Set_Prediction = "csv-output/" + sys.argv[7]
-
-        else:
-            print("Not enough arguments. Usage: neural_network.py NInput NHidden NOutput TrainDigitX.csv.gz" +
-                  "TrainDigitY.csv.gz TestDigitX.csv.gz PredictDigitY.csv.gz")
-            sys.exit()
+        # # Gets the command-line arguments, CSV files are stored in the 'csv-input' directory.
+        # if len(sys.argv) == 8:
+        #     self.N_Input = int(sys.argv[1])
+        #     self.N_Hidden = int(sys.argv[2])
+        #     self.N_Output = int(sys.argv[3])
+        #     self.Train_Set = "csv-input/" + sys.argv[4]
+        #     self.Train_Set_Label = "csv-input/" + sys.argv[5]
+        #     self.Test_Set = "csv-input/" + sys.argv[6]
+        #     self.Test_Set_Prediction = "csv-output/" + sys.argv[7]
+        # else:
+        #     print("Not enough arguments. Usage: neural_network.py NInput NHidden NOutput TrainDigitX.csv.gz" +
+        #           "TrainDigitY.csv.gz TestDigitX.csv.gz PredictDigitY.csv.gz")
+        #     sys.exit()
+        
+        # Default parameters
+        self.N_Input = 784
+        self.N_Hidden = 30
+        self.N_Output = 10
+        self.Train_Set = "csv-files/TrainDigitX.csv.gz"
+        self.Train_Set_Label = "csv-files/TrainDigitY.csv.gz"
+        self.Test_Set = "csv-files/TestDigitX.csv.gz"
+        self.Test_Set_Prediction = "csv-files/PredictDigitY.csv.gz"
 
         # N_Input must be 784 and N_Output must be 10 to work with MNIST data sets.
         if self.N_Input != 784 or self.N_Output != 10:
