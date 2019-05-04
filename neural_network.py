@@ -15,7 +15,7 @@ class Neural_Net(object):
 
     def __init__(self):
         if len(sys.argv) > 1:
-            if sys.argv[1] == '-demo':
+            if '-demo' in sys.argv:
                 # Default parameters
                 self.N_Input = 784
                 self.N_Hidden = 30
@@ -206,48 +206,33 @@ class Neural_Net(object):
         probabilities = self.soft_max(Y_hat)
         return np.argmax(probabilities, axis=1)
 
-    # Compares the values of Y with Y_hat, and returns the accuracy as the percentage of correct classifications.
-    # Is used for debugging and gathering accuracy data.
-    # Not used in the final program because TrainDigitX2.csv.gz does not have a label set to compare with.
-    def get_accuracy(self, Output, Test_Y):
-        wrong_count = 0
-        total = Output.shape[0]
-        for i in range(Output.shape[0]):
-            if Output[i] != Test_Y[i]:
-                wrong_count += 1
-        # Prints out accuracy statistics.
-        correct = total - wrong_count
-        print("Correct: " + str(correct))
-        print("Incorrect: " + str(wrong_count))
-        print(str(correct/total*100) + "% correct.")
-        print(" ")
-        return correct/total*100
     
+if __name__ == "__main__":
 
-# Creates a Neural_Net object, and sets the epochs, mini_batch_size, learning_rate, and the bias_input values.
-print("~~~ Python Neural Network ~~~")
-NN = Neural_Net()
+    # Creates a Neural_Net object, and sets the epochs, mini_batch_size, learning_rate, and the bias_input values.
+    print("~~~ Python Neural Network ~~~")
+    NN = Neural_Net()
 
-epochs = 30
-mini_batch_size = 20
-learning_rate = 3.0
-bias_num = 0.0
+    epochs = 30
+    mini_batch_size = 20
+    learning_rate = 3.0
+    bias_num = 0.0
 
-print("Epochs: " + str(epochs) + ", mini_batch_size: " + str(mini_batch_size) +
-       ", learn rate: " + str(learning_rate) + ", bias_num: " + str(bias_num))
+    print("Epochs: " + str(epochs) + ", mini_batch_size: " + str(mini_batch_size) +
+           ", learn rate: " + str(learning_rate) + ", bias_num: " + str(bias_num))
 
-# Trains the Neural_Network, then forward propagates the TestDigitX data through network.
-# Then classifies the y_hat output and converts it to the same format of TestDigitY (50,000 rows, 1 col).
-NN.train(epochs, mini_batch_size, learning_rate, bias_num)
+    # Trains the Neural_Network, then forward propagates the TestDigitX data through network.
+    # Then classifies the y_hat output and converts it to the same format of TestDigitY (50,000 rows, 1 col).
+    NN.train(epochs, mini_batch_size, learning_rate, bias_num)
 
-print("Testing '" + NN.Test_Set + "'.")
-Test_Y_hat = NN.fwd_prop(NN.Test_X)
-Output = NN.convert(Test_Y_hat)
-print("Testing completed.")
+    print("Testing '" + NN.Test_Set + "'.")
+    Test_Y_hat = NN.fwd_prop(NN.Test_X)
+    Output = NN.convert(Test_Y_hat)
+    print("Testing completed.")
 
-# Saves Test_Y_hat to a file specified by the 'Test_Set_Prediction' command-line argument.
-# File is formatted in the same way as TrainDigitY.csv (x rows, 1 column). File is stored in 'csv-output' directory.
-print("Saving predictions for '" + NN.Test_Set + "' as '" + NN.Test_Set_Prediction + "'.")
-np.savetxt(NN.Test_Set_Prediction, Output, fmt='%d')
-print(" ")
+    # Saves Test_Y_hat to a file specified by the 'Test_Set_Prediction' command-line argument.
+    # File is formatted in the same way as TrainDigitY.csv (x rows, 1 column). File is stored in 'csv-output' directory.
+    print("Saving predictions for '" + NN.Test_Set + "' as '" + NN.Test_Set_Prediction + "'.")
+    np.savetxt(NN.Test_Set_Prediction, Output, fmt='%d')
+    print(" ")
 
