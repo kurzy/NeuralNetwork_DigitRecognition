@@ -14,19 +14,31 @@ np.seterr(over='ignore')
 class Neural_Net(object):
 
     def __init__(self):
-        # # Gets the command-line arguments, CSV files are stored in the 'csv-input' directory.
-        # if len(sys.argv) == 8:
-        #     self.N_Input = int(sys.argv[1])
-        #     self.N_Hidden = int(sys.argv[2])
-        #     self.N_Output = int(sys.argv[3])
-        #     self.Train_Set = "csv-input/" + sys.argv[4]
-        #     self.Train_Set_Label = "csv-input/" + sys.argv[5]
-        #     self.Test_Set = "csv-input/" + sys.argv[6]
-        #     self.Test_Set_Prediction = "csv-output/" + sys.argv[7]
-        # else:
-        #     print("Not enough arguments. Usage: neural_network.py NInput NHidden NOutput TrainDigitX.csv.gz" +
-        #           "TrainDigitY.csv.gz TestDigitX.csv.gz PredictDigitY.csv.gz")
-        #     sys.exit()
+        if len(sys.argv) > 1:
+            if sys.argv[1] == '-demo':
+                # Default parameters
+                self.N_Input = 784
+                self.N_Hidden = 30
+                self.N_Output = 10
+                self.Train_Set = "csv-files/TrainDigitX.csv.gz"
+                self.Train_Set_Label = "csv-files/TrainDigitY.csv.gz"
+                self.Test_Set = "csv-files/TestDigitX.csv.gz"
+                self.Test_Set_Prediction = "csv-files/PredictDigitY.csv.gz"
+                print("Executing with demo arguments") 
+            else:
+                # Gets the command-line arguments, CSV files are stored in the 'csv-input' directory.
+                if len(sys.argv) == 8:
+                    self.N_Input = int(sys.argv[1])
+                    self.N_Hidden = int(sys.argv[2])
+                    self.N_Output = int(sys.argv[3])
+                    self.Train_Set = "csv-input/" + sys.argv[4]
+                    self.Train_Set_Label = "csv-input/" + sys.argv[5]
+                    self.Test_Set = "csv-input/" + sys.argv[6]
+                    self.Test_Set_Prediction = "csv-output/" + sys.argv[7]
+        else:
+            print("Not enough arguments. Usage: neural_network.py NInput NHidden NOutput TrainDigitX.csv.gz" +
+                "TrainDigitY.csv.gz TestDigitX.csv.gz PredictDigitY.csv.gz")
+            sys.exit()
         
         # Default parameters
         self.N_Input = 784
@@ -194,7 +206,6 @@ class Neural_Net(object):
         probabilities = self.soft_max(Y_hat)
         return np.argmax(probabilities, axis=1)
 
-    """
     # Compares the values of Y with Y_hat, and returns the accuracy as the percentage of correct classifications.
     # Is used for debugging and gathering accuracy data.
     # Not used in the final program because TrainDigitX2.csv.gz does not have a label set to compare with.
@@ -211,7 +222,7 @@ class Neural_Net(object):
         print(str(correct/total*100) + "% correct.")
         print(" ")
         return correct/total*100
-    """
+    
 
 # Creates a Neural_Net object, and sets the epochs, mini_batch_size, learning_rate, and the bias_input values.
 print("~~~ Python Neural Network ~~~")
